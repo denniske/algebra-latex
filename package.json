@@ -1,5 +1,5 @@
 {
-  "name": "algebra-latex",
+  "name": "denniske-algebra-latex",
   "version": "1.1.1",
   "scripts": {
     "build": "rm -rf ./lib && babel src -d lib",

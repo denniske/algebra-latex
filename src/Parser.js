@@ -105,6 +105,12 @@ export default class ParserLatex {
       return this.operator()
     }
 
+    if (
+      this.peek_token.type == 'color'
+    ) {
+      return this.color()
+    }
+
     if (this.peek_token.type == 'bracket' && this.peek_token.open == false) {
       return null
     }
@@ -411,6 +417,14 @@ export default class ParserLatex {
     return {
       type: 'variable',
       value: name,
+    }
+  }
+
+  color() {
+    this.next_token()
+    return {
+        type: this.current_token.type,
+        value: this.current_token.value,
     }
   }
 

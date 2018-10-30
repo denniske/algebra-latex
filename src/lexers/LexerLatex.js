@@ -106,10 +106,32 @@ export default class LatexLexer extends Lexer {
       return { type: 'equal' }
     }
 
+    if (this.current_char() == '#') {
+        return this.color();
+    }
+
     this.error('Unknown symbol: ' + this.current_char())
   }
 
-  keyword() {
+  color() {
+      this.eat('#')
+
+      let token = ''
+      while (
+          this.current_char().match(/[a-zA-Z\d]/) &&
+          this.pos <= this.text.length
+          ) {
+          token += this.current_char()
+          this.increment()
+      }
+
+      return {
+          type: 'color',
+          value: '#' + token,
+      }
+  }
+
+    keyword() {
     this.eat('\\')
 
     let variable = this.variable()

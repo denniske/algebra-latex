@@ -49,7 +49,7 @@ describe('latex parser', () => {
   })
 
   it('parse but ignore \\textcolor', () => {
-    const latex = '\\textcolor{name}{1}'
+    const latex = '\\textcolor{#FF0000}{1}'
 
     assert.deepEqual(parser(latex), {
         type: 'number',
