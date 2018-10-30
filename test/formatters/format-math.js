@@ -154,6 +154,24 @@ describe('formatter', () => {
       assert.equal(format(parsedLatex), 'var_test')
   })
 
+  it('should be able to work with numbers as strings', () => {
+      const parsedLatex = {
+          type: 'number',
+          value: '11111111111111111',
+      }
+
+      assert.equal(format(parsedLatex), '11111111111111111')
+  })
+
+  // it('should be able to work with numbers as strings2', () => {
+  //     const parsedLatex = {
+  //         type: 'number',
+  //         value: 11111111111111111,
+  //     }
+  //
+  //     assert.equal(format(parsedLatex), '11111111111111111')
+  // })
+
   it('should format latex with spaces correctly', () => {
     const parsedLatex = {
       type: 'operator',

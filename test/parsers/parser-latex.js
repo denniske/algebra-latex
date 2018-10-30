@@ -8,6 +8,18 @@ describe('latex parser', () => {
     return lexerLatex.parse()
   }
 
+  // We need this for numbers that are large would be rounded by javascript
+  it('parse number as string', () => {
+      const latex = '11111111111111111'
+
+      assert.equal(typeof parser(latex).value, "string");
+
+      assert.deepEqual(parser(latex), {
+          type: 'number',
+          value: "11111111111111111",
+      })
+  })
+
   it('parse simple variable', () => {
       const latex = 'var'
 

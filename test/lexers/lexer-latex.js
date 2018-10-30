@@ -16,6 +16,21 @@ describe('latex lexer', () => {
     return result
   }
 
+  it('parse number as string', () => {
+      const latex = '1'
+
+      assert.equal(typeof parse(latex)[0].value, "string");
+
+      const expected = [
+          {
+              type: 'number',
+              value: '1',
+          },
+      ]
+
+      assert.deepEqual(parse(latex), expected)
+  })
+
   it('parse simple latex expression', () => {
     const latex = '\\sqrt{  \\frac{1\\cdot 2   + 3}{\\Delta t} -3 }* 54/399'
 

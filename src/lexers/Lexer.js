@@ -67,7 +67,7 @@ export default class Lexer {
 
     return {
       type: 'number',
-      value: result,
+      value: num,
     }
   }
 }
