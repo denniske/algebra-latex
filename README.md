@@ -1,6 +1,6 @@
 # algebra-latex
 
-[![Build Status](https://travis-ci.org/viktorstrate/algebra-latex.svg?branch=master)](https://travis-ci.org/viktorstrate/algebra-latex)
+[![Build Status](https://travis-ci.org/denniske/algebra-latex.svg?branch=master)](https://travis-ci.org/denniske/algebra-latex)
 [![npm version](https://badge.fury.io/js/algebra-latex.svg)](https://www.npmjs.com/package/algebra-latex)
 
 An npm module, with no dependencies, for parsing LaTeX math to a regular math string ([ascii math](http://asciimath.org/)),
