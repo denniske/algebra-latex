@@ -2,6 +2,7 @@ import LexerClass from './lexers/Lexer'
 import functions from './models/functions'
 import greekLetters from './models/greek-letters'
 import { debug } from './logger'
+import commands from "./models/commands";
 
 export default class ParserLatex {
   constructor(latex, Lexer) {
@@ -141,6 +142,11 @@ export default class ParserLatex {
       return this.function()
     }
 
+    if (Object.keys(commands).includes(kwd.toLowerCase())) {
+      const arity = commands[kwd.toLowerCase()].arity;
+      return this.command(kwd.toLowerCase(), arity)
+    }
+
     this.eat('keyword')
     return {
       type: 'keyword',
@@ -170,6 +176,36 @@ export default class ParserLatex {
       lhs: nominator,
       rhs: denominator,
     }
+  }
+
+  command(cmd, arity) {
+    // command : CMD group
+    // command : CMD group group
+    // command : CMD group group group ...
+
+    debug('command')
+
+    this.eat('keyword')
+
+    if (this.current_token.value.toLowerCase() !== cmd) {
+      this.error(
+        'Expected ' + cmd + ' found ' + JSON.stringify(this.current_token)
+      )
+    }
+
+    const args = [];
+    for (let i = 0; i < arity; i++) {
+      let arg = this.group();
+      args.push(arg);
+    }
+
+    return args[args.length - 1];
+
+    // return {
+    //   type: 'command',
+    //   command: cmd,
+    //   args: args,
+    // }
   }
 
   function() {

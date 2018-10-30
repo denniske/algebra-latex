@@ -8,6 +8,33 @@ describe('latex parser', () => {
     return lexerLatex.parse()
   }
 
+  it('parse very simple expression', () => {
+    const latex = '1'
+
+    assert.deepEqual(parser(latex), {
+        type: 'number',
+        value: 1,
+    })
+  })
+
+  it('parse but ignore \\class', () => {
+    const latex = '\\class{name}{1}'
+
+    assert.deepEqual(parser(latex), {
+        type: 'number',
+        value: 1,
+    })
+  })
+
+  it('parse but ignore \\textcolor', () => {
+    const latex = '\\textcolor{name}{1}'
+
+    assert.deepEqual(parser(latex), {
+        type: 'number',
+        value: 1,
+    })
+  })
+
   it('parse simple expression', () => {
     const latex = '\\frac{1}{2} + \\sqrt{2} \\cdot 4'
 
