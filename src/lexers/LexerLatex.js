@@ -51,6 +51,11 @@ export default class LatexLexer extends Lexer {
       return this.variable()
     }
 
+    if (this.current_char() == '_') {
+      this.increment()
+      return { type: 'underscore' }
+    }
+
     if (this.current_char() == '{') {
       this.increment()
       return { type: 'bracket', open: true, value: '{' }

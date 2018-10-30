@@ -8,6 +8,28 @@ describe('latex parser', () => {
     return lexerLatex.parse()
   }
 
+  it('parse simple variable', () => {
+      const latex = 'var'
+
+      assert.deepEqual(parser(latex), {
+          type: 'variable',
+          value: 'var',
+      })
+  })
+
+  it('parse variable with underscore', () => {
+      const latex = 'var_{test}'
+
+      assert.deepEqual(parser(latex), {
+          type: 'variable',
+          value: 'var',
+          index: {
+              type: 'variable',
+              value: 'test',
+          }
+      })
+  })
+
   it('parse very simple expression', () => {
     const latex = '1'
 

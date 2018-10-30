@@ -94,6 +94,10 @@ export default class MathFormatter {
       return greekLetter
     }
 
+    if (root.index) {
+        return `${root.value}` + "_" + this.variable(root.index);
+    }
+
     return `${root.value}`
   }
 

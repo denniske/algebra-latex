@@ -141,6 +141,19 @@ describe('formatter', () => {
     })
   })
 
+  it('should format variables correctly', () => {
+      const parsedLatex = {
+          type: 'variable',
+          value: 'var',
+          index: {
+              type: 'variable',
+              value: 'test',
+          }
+      }
+
+      assert.equal(format(parsedLatex), 'var_test')
+  })
+
   it('should format latex with spaces correctly', () => {
     const parsedLatex = {
       type: 'operator',
