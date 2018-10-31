@@ -88,6 +88,9 @@ export default class LatexFormatter {
   }
 
   variable(root) {
+    if (root.index) {
+        return `${root.value}_{${this.format(root.index)}}`;
+    }
     return `${root.value}`
   }
 
