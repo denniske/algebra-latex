@@ -406,11 +406,23 @@ export default class ParserLatex {
 
     if (this.peek_token.type === 'underscore') {
       this.eat('underscore');
-      const index = this.group();
-      return {
-          type: 'variable',
-          value: name,
-          index,
+
+      this.peek();
+      console.log("peek", this.peek_token.type);
+      if (this.peek_token.type === 'variable') {
+          const index = this.variable();
+          return {
+              type: 'variable',
+              value: name,
+              index,
+          }
+      } else {
+        const index = this.group();
+        return {
+            type: 'variable',
+            value: name,
+            index,
+        }
       }
     }
 

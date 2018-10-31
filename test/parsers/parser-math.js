@@ -8,6 +8,19 @@ describe('math parser', () => {
     return lexerMath.parse()
   }
 
+  it('parse variable', () => {
+      const math = 'var_test'
+
+      assert.deepEqual(parser(math), {
+          type: 'variable',
+          value: 'var',
+          index: {
+              type: 'variable',
+              value: 'test',
+          }
+      })
+  })
+
   it('parse simple expression', () => {
     const math = '1/2 + sqrt(2)* 4'
 
