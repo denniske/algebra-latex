@@ -69,6 +69,10 @@ export default class LatexFormatter {
     lhs = lhsParen ? `\\left(${lhs}\\right)` : lhs
     rhs = rhsParen ? `\\left(${rhs}\\right)` : rhs
 
+    if (op === "^") {
+      rhs = `{${rhs}}`;
+    }
+
     return `${lhs}${op}${rhs}`
   }
 
