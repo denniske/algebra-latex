@@ -112,6 +112,6 @@ export default class MathFormatter {
       return `${this.format(root.base)}_${this.format(root.subscript)}`
     }
 
-    return `${this.format(root.base)}_(${this.format(root.subscript)})`
+    return `${this.format(root.base)}_${this.format(root.subscript)}`
   }
 }
