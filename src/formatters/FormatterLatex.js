@@ -77,7 +77,7 @@ export default class LatexFormatter {
     lhs = lhsParen ? `\\left(${lhs}\\right)` : lhs
 
     if (root.operator == 'exponent') {
-      rhs = rhsParen ? `{${rhs}}` : rhs
+      rhs = rhsParen ? `{${rhs}}` : `{${rhs}}`
     } else {
       rhs = rhsParen ? `\\left(${rhs}\\right)` : rhs
     }

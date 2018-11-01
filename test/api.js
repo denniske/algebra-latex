@@ -21,6 +21,10 @@ describe('API tests', () => {
     assert.equal(mathEquation, 'x+2/3-4=8')
   })
 
+  it('parse empty ffff', () => {
+    assert.equal(new AlgebraLatex().parseMath('1.602*10^(-18)').toLatex(), '1.602\\cdot 10^{-18}')
+  })
+
   it('parse empty input', () => {
     assert.equal(new AlgebraLatex().parseLatex('').toMath(), '')
     assert.equal(new AlgebraLatex().parseMath('').toLatex(), '')
