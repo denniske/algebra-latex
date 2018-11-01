@@ -7,6 +7,7 @@ describe('formatter latex', () => {
     return formatter.format()
   }
 
+
   it('format a general math example', () => {
     const ast = {
       type: 'operator',

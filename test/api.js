@@ -16,6 +16,7 @@ describe('API tests', () => {
   const mathEquation = algebraEquation.toMath()
   const mathExpression = algebraExpression.toMath()
 
+
   it('should parse math equation', () => {
     assert.equal(mathEquation, 'x+2/3-4=8')
   })
