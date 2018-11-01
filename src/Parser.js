@@ -334,9 +334,9 @@ export default class ParserLatex {
   }
 
   operator_exp() {
-    // operator_exp : number ( EXPONENT operator_exp )?
+    // operator_exp : subscript ( EXPONENT operator_exp )?
 
-    let lhs = this.number()
+    let lhs = this.subscript()
     let op = this.peek()
 
     if (op.type != 'operator' || op.value != 'exponent') {
@@ -364,6 +364,24 @@ export default class ParserLatex {
       type: 'variable',
       value: this.current_token.value,
     }
+  }
+
+  subscript() {
+    const base_num = this.number()
+
+    if (this.peek().type == 'underscore') {
+      this.eat('underscore')
+
+      const sub_value = this.subscript()
+
+      return {
+        type: 'subscript',
+        base: base_num,
+        subscript: sub_value,
+      }
+    }
+
+    return base_num
   }
 
   number() {

@@ -1,9 +1,15 @@
+import greekLetters from '../models/greek-letters'
+
 export default class LatexFormatter {
   constructor(ast) {
     this.ast = ast
   }
 
   format(root = this.ast) {
+    if (root == null) {
+      return ''
+    }
+
     switch (root.type) {
       case 'operator':
         return this.operator(root)
@@ -15,6 +21,8 @@ export default class LatexFormatter {
         return this.variable(root)
       case 'equation':
         return this.equation(root)
+      case 'subscript':
+        return this.subscript(root)
       default:
         throw Error('Unexpected type: ' + root.type)
     }
@@ -67,7 +75,12 @@ export default class LatexFormatter {
     let rhsParen = shouldHaveParenthesis(root.rhs)
 
     lhs = lhsParen ? `\\left(${lhs}\\right)` : lhs
-    rhs = rhsParen ? `\\left(${rhs}\\right)` : rhs
+
+    if (root.operator == 'exponent') {
+      rhs = rhsParen ? `{${rhs}}` : rhs
+    } else {
+      rhs = rhsParen ? `\\left(${rhs}\\right)` : rhs
+    }
 
     return `${lhs}${op}${rhs}`
   }
@@ -84,14 +97,28 @@ export default class LatexFormatter {
   }
 
   function(root) {
+    if (root.value == 'sqrt') {
+      return `\\${root.value}{${this.format(root.content)}}`
+    }
     return `\\${root.value}\\left(${this.format(root.content)}\\right)`
   }
 
   variable(root) {
+    if (greekLetters.map(l => l.name).includes(root.value.toLowerCase())) {
+      return `\\${root.value}`
+    }
     return `${root.value}`
   }
 
   equation(root) {
     return `${this.format(root.lhs)}=${this.format(root.rhs)}`
+  }
+
+  subscript(root) {
+    if (root.subscript.type == 'variable' && root.subscript.value.length == 1) {
+      return `${this.format(root.base)}_${this.format(root.subscript)}`
+    }
+
+    return `${this.format(root.base)}_{${this.format(root.subscript)}}`
   }
 }

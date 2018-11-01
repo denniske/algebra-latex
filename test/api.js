@@ -20,6 +20,11 @@ describe('API tests', () => {
     assert.equal(mathEquation, 'x+2/3-4=8')
   })
 
+  it('parse empty input', () => {
+    assert.equal(new AlgebraLatex().parseLatex('').toMath(), '')
+    assert.equal(new AlgebraLatex().parseMath('').toLatex(), '')
+  })
+
   it('should parse math expression', () => {
     assert.equal(mathExpression, 'x*3/9')
   })
@@ -34,7 +39,7 @@ describe('API tests', () => {
 
   it('chain functions', () => {
     const result = new AlgebraLatex().parseMath('1/sqrt(2)').toLatex()
-    assert.equal(result, '\\frac{1}{\\sqrt\\left(2\\right)}')
+    assert.equal(result, '\\frac{1}{\\sqrt{2}}')
   })
 
   describe('algebra.js', () => {
@@ -62,7 +67,7 @@ describe('API tests', () => {
     const algebriteEquation = algebraEquation.toAlgebrite(algebrite)
 
     it('should solve expression', () => {
-      assert.equal(algebriteExpression.toString(), '1/3 x')
+      assert.equal(algebriteExpression.toString(), '1/3*x')
     })
 
     it('should fail to parse equation', () => {
@@ -75,7 +80,7 @@ describe('API tests', () => {
       const latex = '\\alpha + \\alpha - \\Delta'
       const obj = new AlgebraLatex(latex)
 
-      assert.equal(obj.toAlgebrite(algebrite).toString(), '-Delta + 2 alpha')
+      assert.equal(obj.toAlgebrite(algebrite).toString(), '-Delta+2*alpha')
     })
   })
 
@@ -89,6 +94,17 @@ describe('API tests', () => {
 
     it('should solve expression', () => {
       assert.equal(coffeequateExpression.toString(), 'x/3')
+    })
+
+    it('solve exponent', () => {
+      const latex = '3^{3}+4^2'
+
+      const result = new AlgebraLatex()
+        .parseLatex(latex)
+        .toCoffeequate(coffeequate)
+        .toString()
+
+      assert.equal(result, '43')
     })
   })
 })
